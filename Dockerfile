@@ -55,10 +55,14 @@ RUN	curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - 
 RUN apt purge --auto-remove -y curl && rm -rf /var/lib/apt/lists/*
 
 # Add chrome user
-RUN groupadd -r chrome --gid 1000 && useradd -r -g chrome --uid 1000 -G audio,video chrome \
-    && mkdir -p /home/chrome/Downloads && chown -R chrome:chrome /home/chrome
+RUN groupadd -r chrome --gid 1000  \
+    && useradd -r -g chrome --uid 1000 -G audio,video chrome \
+    && mkdir -p /home/chrome/Downloads \
+    && chown -R chrome:chrome /home/chrome \
+    && mkdir -p /home/chrome/.config/gtk-3.0/
 
 COPY local.conf /etc/fonts/local.conf
+COPY settings.ini  /home/chrome/.config/gtk-3.0/
 
 # Run Chrome as non privileged user
 USER chrome
