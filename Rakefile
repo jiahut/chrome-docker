@@ -25,3 +25,7 @@ desc " remove chrome-instance"
 task :rm do
   sh "docker rm chrome-instance"
 end
+
+task :default do
+  sh "rake --tasks"
+end
