@@ -1,13 +1,13 @@
 desc "build the image"
 task :build do
-  sh "docker build . --network host -t docker-chrome"
+  sh "docker build . --network host -t jiahut/docker-chrome"
 end
 
 desc "open the chrome "
 task :instance  do
   sh """
     docker run -d --net host --cpuset-cpus 0 --memory 512mb -v $PWD/google-chrome-user-data/:/data -v /tmp/.X11-unix:/tmp/.X11-unix  \
-    --security-opt seccomp=$PWD/chrome.json  -e DISPLAY=unix$DISPLAY -v /dev/shm:/dev/shm --name chrome-instance docker-chrome
+    --security-opt seccomp=$PWD/chrome.json  -e DISPLAY=unix$DISPLAY -v /dev/shm:/dev/shm --name chrome-instance jiahut/docker-chrome
   """
 end
 
